@@ -64,6 +64,9 @@ app:
   dev-mode: ${DEV_MODE:false}        # true => le code OTP est renvoye dans la reponse (demo/dev)
 
 management:
+  health:
+    mail:
+      enabled: false   # pas de serveur SMTP requis pour la sonde de sante en demo
   endpoints:
     web:
       exposure:
