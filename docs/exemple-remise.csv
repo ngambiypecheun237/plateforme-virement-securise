@@ -1,0 +1,6 @@
+# Exemple de remise d'entreprise (salaires / fournisseurs)
+# Format : nom;iban;montant;motif[;bic]
+# Le separateur ';' est recommande (le ',' est auto-detecte si ';' est absent).
+Dupont Marie;CM6010000009876543210987654;450000;Salaire octobre 2026
+SCI Le Palmier;FR4812345678901234567890123;1200000;Facture 2026-118
+Travail Ali;CM3810000001123456789012345;325000;Salaire octobre 2026

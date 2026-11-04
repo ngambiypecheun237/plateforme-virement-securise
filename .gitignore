@@ -1,0 +1,30 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+
+### IDE ###
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Secrets / env ###
+.env
+*.local
+
+### Logs ###
+*.log
+logs/
+
+### Node (si outillage frontend) ###
+node_modules/
+
+### Couverture de tests ###
+jacoco.exec

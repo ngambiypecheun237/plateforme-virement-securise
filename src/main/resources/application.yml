@@ -1,0 +1,86 @@
+# ===================================================================
+# Plateforme de Virement Bancaire Securise - configuration par defaut
+# Base PostgreSQL (surchargeable par variables d'environnement)
+# ===================================================================
+spring:
+  application:
+    name: plateforme-virement-securise
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/virementdb}
+    username: ${DB_USERNAME:virement}
+    password: ${DB_PASSWORD:virement}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /
+  error:
+    include-message: never
+    include-stacktrace: never
+
+# Securite JWT : la cle DOIT etre fournie par l'environnement en production
+app:
+  jwt:
+    secret: ${JWT_SECRET:Zm9vYmFyYmF6cXV4ODBhYmNkZWZnaGprbG1ub3BxcnN0dXZ3eHl6c2N2Ynhvcm5tbHBxMTIzNA==}
+    expiration-ms: ${JWT_EXPIRATION_MS:28800000}   # 8 heures
+  carence-heures: ${CARENCE_HEURES:48}
+  otp:
+    ttl-minutes: 5
+    max-attempts: 5
+  fraude:
+    montant-critique: ${FRAUDE_MONTANT_CRITIQUE:25000000}   # 25 000 000 XAF
+    montant-eleve: ${FRAUDE_MONTANT_ELEVE:5000000}          #  5 000 000 XAF
+    montant-inhabituel-nuit: ${FRAUDE_MONTANT_NUIT:1000000}
+    beneficiaire-recent-jours: 7
+    beneficiaire-recent-montant: ${FRAUDE_MONTANT_BENEFICIAIRE_RECENT:2000000}
+    velocite-max: 3                 # virements max sur la fenetre
+    velocite-fenetre-minutes: 10
+  dev-mode: ${DEV_MODE:false}        # true => le code OTP est renvoye dans la reponse (demo/dev)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+logging:
+  level:
+    root: INFO
+    com.banque.virement: INFO
+    org.hibernate.SQL: WARN

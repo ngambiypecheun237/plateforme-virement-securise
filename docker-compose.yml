@@ -1,0 +1,64 @@
+# Plateforme de Virement Bancaire Securise — stack complet
+#   docker compose up --build
+# Services optionnels :
+#   docker compose --profile messaging up   -> ajoute RabbitMQ (file d'attente dediee)
+#   docker compose --profile tools up       -> ajoute Adminer (UI PostgreSQL sur :8081)
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: virement-db
+    environment:
+      POSTGRES_DB: virementdb
+      POSTGRES_USER: virement
+      POSTGRES_PASSWORD: virement
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U virement -d virementdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: virement-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/virementdb
+      DB_USERNAME: virement
+      DB_PASSWORD: virement
+      # En production : JWT_SECRET fort (openssl rand -base64 48), DEV_MODE=false
+      JWT_SECRET: ${JWT_SECRET:-Zm9vYmFyYmF6cXV4ODBhYmNkZWZnaGprbG1ub3BxcnN0dXZ3eHl6c2N2Ynhvcm5tbHBxMTIzNA==}
+      DEV_MODE: ${DEV_MODE:-false}
+      MAIL_HOST: ${MAIL_HOST:-localhost}
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: virement-rabbitmq
+    profiles: ["messaging"]
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # console :guest/guest
+    environment:
+      RABBITMQ_DEFAULT_USER: bancaire
+      RABBITMQ_DEFAULT_PASS: bancaire
+
+  adminer:
+    image: adminer:4
+    container_name: virement-adminer
+    profiles: ["tools"]
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
