@@ -29,6 +29,14 @@ public class ExportService {
 
     private static final ZoneId ZONE = ZoneId.of("Africa/Douala");
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZONE);
+    private static final DateTimeFormatter LONG_FMT =
+            DateTimeFormatter.ofPattern("EEEE d MMMM yyyy 'a' HH:mm", java.util.Locale.FRANCE).withZone(ZONE);
+
+    private final ReceiptVerificationService verificationService;
+
+    public ExportService(ReceiptVerificationService verificationService) {
+        this.verificationService = verificationService;
+    }
 
     // ------------------------------------------------------------- avis PDF
 
@@ -44,43 +52,70 @@ public class ExportService {
             Font labelFont = new Font(Font.HELVETICA, 9, Font.BOLD, java.awt.Color.DARK_GRAY);
             Font valueFont = new Font(Font.HELVETICA, 10, Font.NORMAL);
 
-            Paragraph bank = new Paragraph("BANQUE DEMONSTRATION", bankFont);
+            Paragraph bank = new Paragraph("BANQUE DEMONSTRATION S.A.", bankFont);
             bank.setAlignment(Element.ALIGN_CENTER);
             document.add(bank);
-            Paragraph sub = new Paragraph("Plateforme de Virement Bancaire Securise - Groupe 9", subFont);
+            Paragraph sub = new Paragraph("Siège social : Boulevard de la Liberté, Douala — Cameroun | RC/DLA/1998/B/000001 | Agréée COBAC",
+                    subFont);
             sub.setAlignment(Element.ALIGN_CENTER);
-            sub.setSpacingAfter(20);
             document.add(sub);
+            Paragraph sub2 = new Paragraph("Plateforme de Virement Bancaire Sécurisé — Groupe 9", subFont);
+            sub2.setAlignment(Element.ALIGN_CENTER);
+            sub2.setSpacingAfter(16);
+            document.add(sub2);
 
-            Paragraph title = new Paragraph("AVIS D'OPERATION", titleFont);
+            Paragraph title = new Paragraph("REÇU DE VIREMENT", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingAfter(20);
+            title.setSpacingAfter(2);
             document.add(title);
+            Paragraph titleSub = new Paragraph("À imprimer et à remettre au client", subFont);
+            titleSub.setAlignment(Element.ALIGN_CENTER);
+            titleSub.setSpacingAfter(16);
+            document.add(titleSub);
 
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
             table.setWidths(new float[]{35, 65});
             addRow(table, "Reference", t.getReference(), labelFont, valueFont);
-            addRow(table, "Date", FMT.format(t.getCreatedAt()), labelFont, valueFont);
+            addRow(table, "Date et heure", LONG_FMT.format(t.getCreatedAt()), labelFont, valueFont);
             addRow(table, "Type", typeLabel(t.getType()), labelFont, valueFont);
             addRow(table, "Statut", t.getStatus().name(), labelFont, valueFont);
-            addRow(table, "Compte debite", t.getSourceAccount().getIban(), labelFont, valueFont);
-            addRow(table, "Beneficiaire", t.getBeneficiary() != null ? t.getBeneficiary().getName()
+            addRow(table, "Compte débité", t.getSourceAccount().getIban(), labelFont, valueFont);
+            addRow(table, "Bénéficiaire", t.getBeneficiary() != null ? t.getBeneficiary().getName()
                     : (t.getTargetAccount() != null ? "Compte propre " + t.getTargetAccount().getIban() : "-"), labelFont, valueFont);
             addRow(table, "IBAN destinataire", t.getBeneficiary() != null ? t.getBeneficiary().getIban()
                     : (t.getTargetAccount() != null ? t.getTargetAccount().getIban() : "-"), labelFont, valueFont);
             addRow(table, "Montant", formatAmount(t.getAmount()) + " " + t.getCurrency(), labelFont, valueFont);
             addRow(table, "Motif", t.getMotif() != null ? t.getMotif() : "-", labelFont, valueFont);
             if (t.getExecutedAt() != null) {
-                addRow(table, "Execute le", FMT.format(t.getExecutedAt()), labelFont, valueFont);
+                addRow(table, "Exécuté le", FMT.format(t.getExecutedAt()), labelFont, valueFont);
             }
             document.add(table);
 
+            // Code de verification anti-falsification (HMAC-SHA256 tronque)
+            String verifyCode = verificationService.codeFor(t.getReference(), t.getAmount().toPlainString());
+            Paragraph verify = new Paragraph("Code de vérification : " + verifyCode,
+                    new Font(Font.HELVETICA, 12, Font.BOLD, new java.awt.Color(15, 76, 129)));
+            verify.setAlignment(Element.ALIGN_CENTER);
+            verify.setSpacingBefore(14);
+            document.add(verify);
+            Paragraph verifyHelp = new Paragraph("Authentification du reçu : référence + montant + code — via /api/v1/public/verify",
+                    subFont);
+            verifyHelp.setAlignment(Element.ALIGN_CENTER);
+            verifyHelp.setSpacingAfter(6);
+            document.add(verifyHelp);
+
+            // Ligne de decoupe (recu agence)
+            Paragraph cut = new Paragraph("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                    new Font(Font.HELVETICA, 8, Font.NORMAL, java.awt.Color.GRAY));
+            cut.setAlignment(Element.ALIGN_CENTER);
+            cut.setSpacingBefore(10);
+            document.add(cut);
             Paragraph footer = new Paragraph(
-                    "\nCe document est genere electroniquement et fait foi de l'operation initiee sur la plateforme. "
-                            + "Conservez-le comme justificatif. Pour toute contestation, contactez votre agence "
-                            + "sous 8 jours avec la reference ci-dessus.", subFont);
-            footer.setSpacingBefore(25);
+                    "Document généré électroniquement par la plateforme de virement sécurisé. Il fait foi de l'opération initiée. "
+                            + "Conservez-le comme justificatif. Pour toute contestation, contactez votre agence sous 8 jours "
+                            + "en présentant la référence ci-dessus et le code de vérification.", subFont);
+            footer.setSpacingBefore(10);
             document.add(footer);
 
             document.close();
@@ -102,14 +137,14 @@ public class ExportService {
             Font cellFont = new Font(Font.HELVETICA, 8, Font.NORMAL);
             Font headFont = new Font(Font.HELVETICA, 8, Font.BOLD, java.awt.Color.WHITE);
 
-            Paragraph title = new Paragraph("Historique des operations de virement", titleFont);
+            Paragraph title = new Paragraph("Historique des opérations de virement", titleFont);
             title.setSpacingAfter(12);
             document.add(title);
 
             PdfPTable table = new PdfPTable(7);
             table.setWidthPercentage(100);
             table.setWidths(new float[]{18, 12, 10, 20, 16, 12, 12});
-            String[] headers = {"Reference", "Date", "Statut", "Beneficiaire / Compte", "Compte debite", "Montant", "Devise"};
+            String[] headers = {"Référence", "Date et heure", "Statut", "Bénéficiaire / Compte", "Compte débité", "Montant", "Devise"};
             for (String h : headers) {
                 com.lowagie.text.pdf.PdfPCell cell = new com.lowagie.text.pdf.PdfPCell(new Phrase(h, headFont));
                 cell.setBackgroundColor(new java.awt.Color(15, 76, 129));

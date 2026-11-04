@@ -125,7 +125,18 @@ Ouvrir **http://localhost:8080/admin/** et se connecter (`agent@banque.cm` / `Ag
 
 Toute alerte **HAUTE/CRITIQUE** bloque avant tout débit : le compte n'est jamais débité tant que l'agent n'a pas validé.
 
-### C.3 Bonnes pratiques
+### C.3 Remettre un reçu au client (impression en agence)
+
+1. Menu *Transactions* → retrouver le virement (recherche par référence, IBAN, bénéficiaire ou date).
+2. Icône **imprimante** en bout de ligne (ou ouvrir le détail avec l'icône œil → *Imprimer le reçu*).
+3. Le **reçu PDF** s'ouvre dans un onglet : référence, date et heure complètes, compte débité, bénéficiaire, montant, statut, **code de vérification anti-falsification** (HMAC-SHA256 tronqué) et ligne de découpe.
+4. Imprimer et remettre au client. Le client (ou un agent) peut ensuite vérifier l'authenticité du reçu via `GET /api/v1/public/verify?reference=…&amount=…&code=…` — la réponse confirme uniquement l'authenticité et le statut, sans exposer de données personnelles.
+
+### C.4 Utilisateurs internes (3 admins + agents)
+
+Menu *Utilisateurs internes* : liste des administrateurs et agents, changement de rôle (Administrateur/Agent), activation/désactivation avec motif (réservé aux ADMIN ; votre propre compte est protégé). Toute action est journalisée dans l'audit.
+
+### C.5 Bonnes pratiques
 
 - Ne jamais valider sans vérifier l'identité du client (rappel téléphonique au numéro enregistré).
 - Consigner le motif du rejet (il est stocké dans l'audit).

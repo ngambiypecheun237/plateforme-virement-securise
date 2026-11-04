@@ -62,6 +62,8 @@ Référence : « Cahier de charge : mise en place d'une plateforme de virement s
 | **V.4** | Compatibilité navigateurs, OS, ordinateurs/tablettes/smartphones | ✅ | Dashboard responsive (CSS grid, viewport) |
 | **V.5** | RGPD / vie privée ; confidentialité ; traçabilité ; LBC/FT ; conservation | ✅ (partiel) | Données minimales, audit conservé, IBANs masqués dans l'UI ; registre de traitement & DPO à établir côté banque ; rétention configurable par archivage |
 | **VI** | Livrables : CDC, Manuel installation, Guide utilisateur, Code source, Application fonctionnelle | ✅ | CDC (dossier parent), `docs/MANUEL_INSTALLATION.md`, `docs/GUIDE_UTILISATEUR.md`, code source complet, livrable exécutable (`target/*.jar`, image Docker) |
+| **Console** | Interface d'administration professionnelle, sans identifiants affichés | ✅ | Split-screen institutionnel, aucune donnée de connexion visible, déconnexion auto 15 min, horloge live, recherche globale, centre de notifications, reçu PDF imprimable + vérification publique du code anti-falsification (HMAC) |
+| **Console** | 100 comptes seedés par catégories | ✅ | 48 COURANT + 28 EPARGNE + 21 PRO (entreprises) + 3 historiques = 100 comptes ; IBANs modulo 97 ; ~250 virements historiques sur 90 jours ; 3 admins + 4 agents |
 | **VII** | Planning 12 semaines / 3 mois | ℹ️ | Concernant la gestion de projet — hors périmètre technique du livrable logiciel |
 
 ## Synthèse

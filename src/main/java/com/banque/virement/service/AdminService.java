@@ -97,11 +97,17 @@ public class AdminService {
                 .orElseThrow(() -> new ResourceNotFoundException("Client introuvable"));
     }
 
-    public List<BankAccount> searchAccounts(String q) {
+    public List<BankAccount> searchAccounts(String q, String type, String status) {
+        List<BankAccount> base;
         if (q == null || q.isBlank()) {
-            return accountRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+            base = accountRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        } else {
+            base = accountRepository.search(q.trim());
         }
-        return accountRepository.search(q.trim());
+        return base.stream()
+                .filter(a -> type == null || type.isBlank() || a.getType().name().equalsIgnoreCase(type))
+                .filter(a -> status == null || status.isBlank() || a.getStatus().name().equalsIgnoreCase(status))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     public List<BankAccount> accountsOf(Long userId) {
@@ -213,6 +219,32 @@ public class AdminService {
         return (userEmail == null || userEmail.isBlank())
                 ? auditLogRepository.findAllByOrderByCreatedAtDesc(pageable)
                 : auditLogRepository.findByUserEmailContainingIgnoreCaseOrderByCreatedAtDesc(userEmail.trim(), pageable);
+    }
+
+    @Transactional
+    public User setUserActive(User admin, Long userId, boolean active, String reason) {
+        if (admin.getRole() != Role.ADMIN) {
+            throw new BusinessException("Seul un administrateur peut activer ou desactiver un utilisateur");
+        }
+        User target = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable"));
+        if (target.getId().equals(admin.getId())) {
+            throw new BusinessException("Vous ne pouvez pas desactiver votre propre compte");
+        }
+        target.setActive(active);
+        target.setUpdatedAt(Instant.now());
+        userRepository.save(target);
+        if (!active) {
+            notificationService.create(target, NotificationType.SECURITE, "Compte desactive",
+                    "Votre compte a ete desactive par un administrateur. Motif : " + (reason == null ? "non precise" : reason));
+        } else {
+            notificationService.create(target, NotificationType.SECURITE, "Compte reactive",
+                    "Votre compte a ete reactive par un administrateur.");
+        }
+        auditService.log(admin.getEmail(), active ? "REACTIVATION_UTILISATEUR" : "DESACTIVATION_UTILISATEUR",
+                "User", String.valueOf(userId),
+                "Motif : " + (reason == null ? "non precise" : reason), null);
+        return target;
     }
 
     // ------------------------------------------------------------------ roles

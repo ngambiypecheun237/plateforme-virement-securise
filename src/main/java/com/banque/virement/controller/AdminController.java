@@ -96,13 +96,33 @@ public class AdminController {
         return ResponseEntity.ok(Map.of("id", updated.getId(), "role", updated.getRole().name()));
     }
 
+    @PostMapping("/clients/{id}/activate")
+    @Operation(summary = "Reactiver un utilisateur (ADMIN uniquement)")
+    public ResponseEntity<Map<String, Object>> activateUser(@PathVariable Long id,
+                                                            @RequestBody(required = false) Map<String, String> body) {
+        User admin = authService.requireActiveUser(currentUser.email());
+        User updated = adminService.setUserActive(admin, id, true, body == null ? null : body.get("reason"));
+        return ResponseEntity.ok(Map.of("id", updated.getId(), "active", updated.isActive()));
+    }
+
+    @PostMapping("/clients/{id}/deactivate")
+    @Operation(summary = "Desactiver un utilisateur (ADMIN uniquement)")
+    public ResponseEntity<Map<String, Object>> deactivateUser(@PathVariable Long id,
+                                                              @RequestBody(required = false) Map<String, String> body) {
+        User admin = authService.requireActiveUser(currentUser.email());
+        User updated = adminService.setUserActive(admin, id, false, body == null ? null : body.get("reason"));
+        return ResponseEntity.ok(Map.of("id", updated.getId(), "active", updated.isActive()));
+    }
+
     // ------------------------------------------------------------ comptes
 
     @GetMapping("/accounts")
-    @Operation(summary = "Rechercher des comptes (IBAN, titulaire)")
-    public ResponseEntity<List<Map<String, Object>>> accounts(@RequestParam(required = false) String q) {
+    @Operation(summary = "Rechercher des comptes (IBAN, titulaire) avec filtres type/statut")
+    public ResponseEntity<List<Map<String, Object>>> accounts(@RequestParam(required = false) String q,
+                                                              @RequestParam(required = false) String type,
+                                                              @RequestParam(required = false) String status) {
         authService.requireActiveUser(currentUser.email());
-        return ResponseEntity.ok(adminService.searchAccounts(q).stream()
+        return ResponseEntity.ok(adminService.searchAccounts(q, type, status).stream()
                 .map(AccountSummary::of)
                 .collect(Collectors.toList()));
     }

@@ -48,6 +48,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     // Endpoints publics
                     .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
+                    .requestMatchers("/api/v1/public/verify").permitAll()
                     .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                     .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                     // Tableau de bord d'administration (fichiers statiques)

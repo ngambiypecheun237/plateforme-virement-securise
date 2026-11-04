@@ -3,93 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Tableau de bord d'administration de la plateforme de virement bancaire securise - supervision, anti-fraude, audit" />
-  <title>Banque — Administration des Virements</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230f4c81'/><path d='M15 38 L50 15 L85 38 Z' fill='%23e8b33d'/><rect x='22' y='45' width='10' height='28' fill='white'/><rect x='45' y='45' width='10' height='28' fill='white'/><rect x='68' y='45' width='10' height='28' fill='white'/><rect x='15' y='78' width='70' height='6' fill='white'/></svg>" />
+  <meta name="description" content="Console d'administration de la plateforme de virement bancaire securise - supervision, anti-fraude, audit - Banque Demonstration S.A." />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Banque Démonstration — Console d'administration</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%230E2A47'/><path d='M12 24 32 10l20 14' stroke='%23C2A14D' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M16 27v18M25.3 27v18M34.7 27v18M44 27v18M12 49h40' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round'/></svg>" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- ============ ECRAN DE CONNEXION ============ -->
 <div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="bank-icon" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 9.2 12 4l9 5.2" stroke="#e8b33d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+
+  <aside class="login-brand" aria-hidden="true">
+    <div class="brand-lockup">
+      <div class="brand-emblem">
+        <svg viewBox="0 0 64 64" width="44" height="44" fill="none"><path d="M12 24 32 10l20 14" stroke="#C2A14D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 27v18M25.3 27v18M34.7 27v18M44 27v18M12 49h40" stroke="#FFFFFF" stroke-width="3.1" stroke-linecap="round"/></svg>
       </div>
-      <div>
-        <h1>Banque<br>Démonstration</h1>
-        <small>Administration des virements</small>
-      </div>
+      <div class="brand-name">Banque<br />Démonstration<span>Société Anonyme au capital de 5 000 000 000 FCFA</span></div>
     </div>
-    <p class="login-subtitle">Espace réservé aux équipes internes : supervision des flux, validation manuelle des opérations suspectes et consultation des journaux d'audit.</p>
 
-    <div class="form-error" id="loginError" role="alert"></div>
+    <div class="brand-pitch">
+      <p class="brand-kicker">CONSOLE D'ADMINISTRATION</p>
+      <h1>Chaque franc<br />compte,<br />chaque geste<br />est tracé.</h1>
+      <p class="brand-sub">Supervision en temps réel des virements, contrôle anti-fraude et journaux d'audit à l'usage exclusif des équipes habilitées de la banque.</p>
 
-    <form id="loginForm" autocomplete="on">
+      <ul class="brand-assurances">
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 3 5 6v5c0 4.5 3 8.6 7 10 4-1.4 7-5.5 7-10V6l-7-3Z" stroke="#C2A14D" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.5 12 2 2 3.5-4" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Opérations bloquées avant débit</strong><span>Toute alerte critique suspend le virement jusqu'à revue humaine.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="4" y="10" width="16" height="9" rx="2" stroke="#C2A14D" stroke-width="1.7"/><path d="M8 10V7.8a4 4 0 0 1 8 0V10" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <div><strong>Double signature exigée</strong><span>Les virements d'entreprise exigent la validation de deux mandataires distincts.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="#C2A14D" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 13h6M9 17h4" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <div><strong>Audit immuable</strong><span>Chaque connexion et chaque décision est horodatée et infalsifiable.</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="brand-foot">
+      <span>RC/DLA/1998/B/000001</span><span class="dot">•</span>
+      <span>Agrément COBAC nº 001-A-98</span><span class="dot">•</span>
+      <span>Douala — Yaoundé</span>
+    </div>
+  </aside>
+
+  <main class="login-panel">
+    <form class="login-card" id="loginForm" autocomplete="on" novalidate>
+      <p class="login-kicker">ACCÈS RESTREINT — PERSONNEL HABILITÉ</p>
+      <h2>Connexion sécurisée</h2>
+      <p class="login-intro">Identifiez-vous avec vos identifiants professionnels. Toute tentative est journalisée.</p>
+
+      <div class="form-error" id="loginError" role="alert" aria-live="assertive"></div>
+
       <div class="field">
-        <label for="email">Email professionnel</label>
-        <input id="email" name="email" type="email" required placeholder="admin@banque.cm" autocomplete="username" />
+        <label for="email">Identifiant professionnel</label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="email" name="email" type="email" required placeholder="prenom.nom@banque.cm" autocomplete="username" spellcheck="false" autocapitalize="none" />
+        </div>
       </div>
+
       <div class="field">
-        <label for="password">Mot de passe</label>
-        <input id="password" name="password" type="password" required placeholder="••••••••••" autocomplete="current-password" />
+        <div class="label-row">
+          <label for="password">Mot de passe</label>
+          <a class="forgot-link" href="mailto:rssi@banque.cm?subject=Reinitialisation%20mot%20de%20passe">Mot de passe oublié ?</a>
+        </div>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7.8a4 4 0 0 1 8 0V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="password" name="password" type="password" required placeholder="••••••••••••" autocomplete="current-password" />
+          <button type="button" class="toggle-visibility" id="togglePassword" aria-label="Afficher ou masquer le mot de passe" aria-pressed="false">
+            <svg id="eyeOpen" viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg id="eyeClosed" viewBox="0 0 24 24" width="18" height="18" fill="none" style="display:none"><path d="M4 4l16 16M10 10a3 3 0 0 0 4.2 4.2M7.4 7.4C4.7 9.3 2.5 12 2.5 12s3.5 6.2 9.5 6.2c1.8 0 3.4-.5 4.8-1.3M14.5 6.1C20.3 6.8 21.5 12 21.5 12s-.8 1.7-2.6 3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Se connecter</button>
+
+      <label class="remember">
+        <input type="checkbox" id="rememberEmail" />
+        <span>Retenir mon identifiant sur ce poste</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+        <span class="btn-label">Se connecter</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="security-strip">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.6 7 10 4-1.4 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <p><strong>Connexion chiffrée TLS 1.3.</strong> Déconnexion automatique après 15 minutes d'inactivité.</p>
+      </div>
+      <p class="help-line">Pas d'accès ? Contactez le <a href="mailto:rssi@banque.cm">responsable sécurité (RSSI)</a>.</p>
     </form>
-
-    <div class="demo-accounts">
-      <strong>Comptes de démonstration</strong><br />
-      Admin : <code>admin@banque.cm</code> / <code>Admin@123</code><br />
-      Agent : <code>agent@banque.cm</code> / <code>Agent@123</code>
-      <br />
-      <button type="button" id="fillDemo">Remplir le compte admin</button>
-    </div>
-  </div>
+  </main>
 </div>
 
 <!-- ============ APPLICATION ============ -->
-<div class="app" id="app">
+<div class="app" id="app" aria-hidden="true">
 
+  <!-- Barre laterale -->
   <aside class="sidebar" aria-label="Navigation principale">
     <div class="sidebar-brand">
-      <div class="bank-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9.2 12 4l9 5.2" stroke="#e8b33d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <div class="sidebar-emblem">
+        <svg viewBox="0 0 64 64" width="30" height="30" fill="none"><path d="M12 24 32 10l20 14" stroke="#C2A14D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 27v18M25.3 27v18M34.7 27v18M44 27v18M12 49h40" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/></svg>
       </div>
-      <div>
-        <b>Banque Démonstration</b>
-        <span>Administration</span>
-      </div>
+      <div class="sidebar-wordmark">Banque<br />Démonstration<span>CONSOLE D'ADMINISTRATION</span></div>
     </div>
 
     <nav class="sidebar-nav">
-      <div class="nav-section">Pilotage</div>
+      <p class="nav-section">Pilotage</p>
       <button class="nav-item active" data-page="dashboard">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 13h6V4H4v9Zm10 7h6v-5h-6v5ZM4 20h6v-3H4v3Zm10-9h6V4h-6v7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M4 13h6V4H4v9Zm10 7h6v-5h-6v5ZM4 20h6v-3H4v3Zm10-9h6V4h-6v7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         Tableau de bord
       </button>
       <button class="nav-item" data-page="transactions">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 8h13l-3.5-3.5M17 16H4l3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7 8h13l-3.5-3.5M17 16H4l3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Transactions
       </button>
       <button class="nav-item" data-page="fraud">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3 2.5 20h19L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        Anti-fraude <span class="alert-pill" id="fraudBadge" style="display:none">0</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3 2.5 20h19L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Anti-fraude <span class="nav-badge" id="fraudBadge" hidden>0</span>
       </button>
 
-      <div class="nav-section">Référentiels</div>
+      <p class="nav-section">Référentiels</p>
       <button class="nav-item" data-page="clients">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c.7-3.2 2.9-5 5.5-5s4.8 1.8 5.5 5M16 5.5a3.2 3.2 0 0 1 0 5.6M18.6 3a6.5 6.5 0 0 1 0 10.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19c.7-3.2 2.9-5 5.5-5s4.8 1.8 5.5 5M16 5.5a3.2 3.2 0 0 1 0 5.6M18.6 3a6.5 6.5 0 0 1 0 10.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         Clients &amp; entreprises
       </button>
       <button class="nav-item" data-page="accounts">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="6" width="19" height="12" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M2.5 10h19M6.5 14h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="2.5" y="6" width="19" height="12" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 10h19M6.5 14h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         Comptes bancaires
       </button>
+      <button class="nav-item" data-page="users">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3l7 3v5c0 4.6-3 8.8-7 10-4-1.2-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 12l2 2 3.5-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Utilisateurs internes
+      </button>
 
-      <div class="nav-section">Conformité</div>
+      <p class="nav-section">Conformité</p>
       <button class="nav-item" data-page="audit">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12h6M9 16h4M9 8h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 12h5M9.5 16h3M9.5 8H12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         Journaux d'audit
       </button>
     </nav>
@@ -97,56 +151,97 @@
     <div class="sidebar-footer">
       <div class="sidebar-user">
         <div class="avatar" id="avatar">A</div>
-        <div>
-          <small id="userRole">ADMIN</small>
+        <div class="sidebar-user-meta">
           <b id="userName">Utilisateur</b>
+          <small id="userRole">—</small>
         </div>
       </div>
-      <button class="logout-btn" id="logoutBtn">Se déconnecter</button>
+      <button class="logout-btn" id="logoutBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2M10 12h10m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Se déconnecter
+      </button>
     </div>
   </aside>
 
+  <!-- Zone principale -->
   <main class="content">
+
+    <!-- Barre superieure -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <p class="breadcrumb">Administration <span>/</span> <b id="crumbCurrent">Tableau de bord</b></p>
+        <div class="topbar-status"><span class="live-dot"></span> Systèmes opérationnels</div>
+      </div>
+
+      <div class="topbar-search" role="search">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <input type="search" id="globalSearch" placeholder="Rechercher un client, un compte (IBAN), une référence…" aria-label="Recherche globale" autocomplete="off" />
+        <div class="search-results" id="searchResults" hidden></div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="clock" aria-label="Heure locale">
+          <b id="clockTime">--:--:--</b>
+          <small id="clockDate">—</small>
+        </div>
+        <div class="bell-wrap">
+          <button class="icon-btn" id="bellBtn" aria-label="Notifications" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M6 9.5a6 6 0 0 1 12 0c0 4 1.5 5.2 1.5 5.2h-15S6 13.5 6 9.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 18a2.1 2.1 0 0 0 4 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span class="bell-badge" id="bellBadge" hidden>0</span>
+          </button>
+          <div class="notif-panel" id="notifPanel" hidden role="dialog" aria-label="Notifications">
+            <div class="notif-head"><strong>Notifications</strong><button id="notifReadAll" class="link-btn">Tout marquer comme lu</button></div>
+            <div class="notif-list" id="notifList"><p class="notif-empty">Chargement…</p></div>
+            <button class="notif-foot link-btn" id="notifGoAudit">Voir le journal d'audit →</button>
+          </div>
+        </div>
+      </div>
+    </header>
 
     <!-- ===== PAGE TABLEAU DE BORD ===== -->
     <section class="page active" id="page-dashboard" aria-label="Tableau de bord">
-      <div class="topbar">
-        <div>
-          <h2>Tableau de bord</h2>
-          <p>Supervision en temps réel des flux de virements de la plateforme.</p>
-        </div>
-        <span class="live-badge"><span class="live-dot"></span>Flux surveillé 24/7</span>
+      <div class="page-head">
+        <div><h1>Tableau de bord</h1><p class="page-sub">Vue d'ensemble des flux et des alertes de la plateforme.</p></div>
+        <span class="env-badge">SIÈGE — DOUALA</span>
       </div>
 
-      <div class="kpi-grid" id="kpiGrid">
-        <div class="card kpi-card"><div class="kpi-label">Clients</div><div class="kpi-value" id="kpiClients">—</div><div class="kpi-hint">particuliers inscrits</div></div>
-        <div class="card kpi-card green"><div class="kpi-label">Comptes actifs</div><div class="kpi-value" id="kpiAccounts">—</div><div class="kpi-hint" id="kpiSuspended">— suspendus/bloqués</div></div>
-        <div class="card kpi-card"><div class="kpi-label">Virements exécutés</div><div class="kpi-value" id="kpiExecuted">—</div><div class="kpi-hint" id="kpiPending">— en attente</div></div>
-        <div class="card kpi-card gold"><div class="kpi-label">Montant total exécuté</div><div class="kpi-value" id="kpiVolume">—</div><div class="kpi-hint">XAF, toutes périodes</div></div>
-        <div class="card kpi-card alert"><div class="kpi-label">Alertes anti-fraude</div><div class="kpi-value" id="kpiFraud">—</div><div class="kpi-hint">ouvertes, en attente de revue</div></div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="dash-grid">
+        <div class="panel chart-panel">
+          <div class="panel-head"><h3>Répartition des virements par statut</h3><span class="panel-note" id="statusTotal"></span></div>
+          <div id="statusChart" class="status-chart"></div>
+        </div>
+        <div class="panel chart-panel">
+          <div class="panel-head"><h3>Volume exécuté par jour</h3><span class="panel-note">30 derniers jours</span></div>
+          <div class="chart" id="dailyChart" role="img" aria-label="Histogramme du volume de virements par jour"></div>
+        </div>
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <h3>Répartition des virements par statut <small id="statusTotal"></small></h3>
-          <div id="statusChart"><div class="loading">Chargement…</div></div>
+      <div class="dash-grid">
+        <div class="panel">
+          <div class="panel-head"><h3>Opérations à traiter</h3><button class="link-btn" id="goFraud">Tout voir →</button></div>
+          <div id="pendingFraudList" class="pending-list"><p class="loading">Chargement…</p></div>
         </div>
-        <div class="card">
-          <h3>Volume journalier exécuté <small>30 derniers jours</small></h3>
-          <div class="chart" id="dailyChart"><div class="chart-empty">Chargement…</div></div>
+        <div class="panel">
+          <div class="panel-head"><h3>Derniers virements</h3><button class="link-btn" id="goTransactions">Tout voir →</button></div>
+          <div class="table-wrap">
+            <table class="data-table compact">
+              <thead><tr><th>Référence</th><th>Date et heure</th><th>Bénéficiaire</th><th class="num">Montant</th><th>Statut</th></tr></thead>
+              <tbody id="recentTxBody"><tr><td colspan="5" class="loading">Chargement…</td></tr></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ===== PAGE TRANSACTIONS ===== -->
     <section class="page" id="page-transactions" aria-label="Transactions">
-      <div class="topbar">
-        <div>
-          <h2>Transactions</h2>
-          <p>Recherche et filtrage de toutes les opérations de la plateforme.</p>
-        </div>
+      <div class="page-head">
+        <div><h1>Transactions</h1><p class="page-sub">Recherche, contrôle et impression des avis de virement.</p></div>
       </div>
-      <div class="card">
+
+      <div class="panel">
         <div class="toolbar">
           <input type="search" id="txSearch" placeholder="Référence, motif, IBAN, bénéficiaire…" aria-label="Recherche transaction" />
           <select id="txStatus" aria-label="Filtrer par statut">
@@ -160,52 +255,56 @@
             <option value="ECHOUE">Échoué</option>
             <option value="ANNULE">Annulé</option>
           </select>
+          <input type="date" id="txFrom" aria-label="Du" title="Du" />
+          <input type="date" id="txTo" aria-label="Au" title="Au" />
           <button class="btn btn-primary" id="txApply">Filtrer</button>
           <div class="spacer"></div>
-          <button class="btn btn-ghost btn-sm" id="exportPdfBtn" type="button">Export PDF</button>
-          <button class="btn btn-ghost btn-sm" id="exportXlsxBtn" type="button">Export Excel</button>
+          <button class="btn btn-ghost" id="exportPdfBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            PDF
+          </button>
+          <button class="btn btn-ghost" id="exportXlsxBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Excel
+          </button>
         </div>
         <div class="table-wrap">
-          <table>
+          <table class="data-table">
             <thead>
-              <tr><th>Référence</th><th>Date</th><th>Bénéficiaire / Compte</th><th>Compte débité</th><th>Montant</th><th>Statut</th></tr>
+              <tr>
+                <th>Référence</th><th>Date et heure</th><th>Bénéficiaire / Compte</th><th>Compte débité</th><th class="num">Montant</th><th>Statut</th><th class="actions-col">Actions</th>
+              </tr>
             </thead>
-            <tbody id="txTableBody"><tr><td colspan="6" class="loading">Chargement…</td></tr></tbody>
+            <tbody id="txTableBody"><tr><td colspan="7" class="loading">Chargement…</td></tr></tbody>
           </table>
         </div>
         <div class="pagination">
-          <button id="txPrev">← Précédent</button>
-          <span id="txPageInfo">Page 1</span>
-          <button id="txNext">Suivant →</button>
+          <button class="btn btn-ghost btn-sm" id="txPrev">← Précédent</button>
+          <span id="txPageInfo">Page 1 / 1</span>
+          <button class="btn btn-ghost btn-sm" id="txNext">Suivant →</button>
           <span class="spacer"></span>
-          <span id="txTotal"></span>
+          <span class="muted" id="txTotal"></span>
         </div>
       </div>
     </section>
 
     <!-- ===== PAGE ANTI-FRAUDE ===== -->
     <section class="page" id="page-fraud" aria-label="Anti-fraude">
-      <div class="topbar">
-        <div>
-          <h2>Alertes anti-fraude</h2>
-          <p>Revue manuelle des opérations suspectes bloquées par le moteur de détection.</p>
-        </div>
+      <div class="page-head">
+        <div><h1>Alertes anti-fraude</h1><p class="page-sub">Les virements sont bloqués avant tout débit. Votre décision fait foi.</p></div>
+        <select id="fraudStatus" class="select" aria-label="Filtrer les alertes">
+          <option value="OUVERTE">Ouvertes</option>
+          <option value="EN_REVUE">En revue</option>
+          <option value="VALIDEE">Validées</option>
+          <option value="ANNULEE">Annulées</option>
+          <option value="">Toutes</option>
+        </select>
       </div>
-      <div class="card">
-        <div class="toolbar">
-          <select id="fraudStatus" aria-label="Filtrer les alertes">
-            <option value="OUVERTE">Ouvertes</option>
-            <option value="EN_REVUE">En revue</option>
-            <option value="VALIDEE">Validées</option>
-            <option value="ANNULEE">Annulées</option>
-            <option value="">Toutes</option>
-          </select>
-          <button class="btn btn-primary" id="fraudApply">Rafraîchir</button>
-        </div>
+      <div class="panel">
         <div class="table-wrap">
-          <table>
+          <table class="data-table">
             <thead>
-              <tr><th>Règle</th><th>Sévérité</th><th>Référence</th><th>Montant</th><th>Initiateur</th><th>Détails</th><th>Actions</th></tr>
+              <tr><th>Règle</th><th>Sévérité</th><th>Référence</th><th>Date et heure</th><th class="num">Montant</th><th>Initiateur</th><th class="actions-col">Décision</th></tr>
             </thead>
             <tbody id="fraudTableBody"><tr><td colspan="7" class="loading">Chargement…</td></tr></tbody>
           </table>
@@ -215,30 +314,23 @@
 
     <!-- ===== PAGE CLIENTS ===== -->
     <section class="page" id="page-clients" aria-label="Clients">
-      <div class="topbar">
-        <div>
-          <h2>Clients &amp; entreprises</h2>
-          <p>Recherche parmi les titulaires de comptes de la plateforme.</p>
-        </div>
+      <div class="page-head">
+        <div><h1>Clients &amp; entreprises</h1><p class="page-sub">Recherche parmi les titulaires de comptes de la banque.</p></div>
       </div>
-      <div class="card">
+      <div class="panel">
         <div class="toolbar">
           <input type="search" id="clientSearch" placeholder="Nom, email, téléphone…" aria-label="Recherche client" />
-          <select id="clientRole" aria-label="Filtrer par type">
-            <option value="">Tous les rôles</option>
+          <select id="clientRole" aria-label="Type de client">
+            <option value="">Tous</option>
             <option value="CLIENT">Particuliers</option>
             <option value="ENTREPRISE">Entreprises</option>
-            <option value="AGENT_BANCAIRE">Agents bancaires</option>
-            <option value="ADMIN">Administrateurs</option>
           </select>
           <button class="btn btn-primary" id="clientApply">Rechercher</button>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Statut</th><th></th></tr>
-            </thead>
-            <tbody id="clientTableBody"><tr><td colspan="6" class="loading">Chargement…</td></tr></tbody>
+          <table class="data-table">
+            <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Entreprise / Société</th><th>Statut</th><th class="actions-col"></th></tr></thead>
+            <tbody id="clientTableBody"><tr><td colspan="7" class="loading">Chargement…</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -246,23 +338,55 @@
 
     <!-- ===== PAGE COMPTES ===== -->
     <section class="page" id="page-accounts" aria-label="Comptes">
-      <div class="topbar">
-        <div>
-          <h2>Comptes bancaires</h2>
-          <p>Consultation des comptes et suspension/réactivation en cas d'incident.</p>
-        </div>
+      <div class="page-head">
+        <div><h1>Comptes bancaires</h1><p class="page-sub"><span id="accountsCount">—</span> comptes au total</p></div>
+        <button class="btn btn-ghost" id="exportAccountsBtn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export CSV
+        </button>
       </div>
-      <div class="card">
+      <div class="panel">
         <div class="toolbar">
           <input type="search" id="accountSearch" placeholder="IBAN, nom ou email du titulaire…" aria-label="Recherche compte" />
-          <button class="btn btn-primary" id="accountApply">Rechercher</button>
+          <select id="accountType" aria-label="Type de compte">
+            <option value="">Tous les types</option>
+            <option value="COURANT">Courant</option>
+            <option value="EPARGNE">Épargne</option>
+            <option value="PRO">Professionnel</option>
+          </select>
+          <select id="accountStatus" aria-label="Statut du compte">
+            <option value="">Tous les statuts</option>
+            <option value="ACTIVE">Actif</option>
+            <option value="SUSPENDED">Suspendu</option>
+            <option value="BLOCKED">Bloqué</option>
+            <option value="CLOSED">Clôturé</option>
+          </select>
+          <button class="btn btn-primary" id="accountApply">Filtrer</button>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>IBAN</th><th>Type</th><th>Titulaire</th><th>Solde</th><th>Plafond jour</th><th>Statut</th><th>Actions</th></tr>
-            </thead>
+          <table class="data-table">
+            <thead><tr><th>IBAN</th><th>Type</th><th>Titulaire</th><th class="num">Solde</th><th class="num">Plafond jour</th><th>Statut</th><th class="actions-col">Actions</th></tr></thead>
             <tbody id="accountTableBody"><tr><td colspan="7" class="loading">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <button class="btn btn-ghost btn-sm" id="accountPrev">← Précédent</button>
+          <span id="accountPageInfo">Page 1 / 1</span>
+          <button class="btn btn-ghost btn-sm" id="accountNext">Suivant →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE UTILISATEURS ===== -->
+    <section class="page" id="page-users" aria-label="Utilisateurs internes">
+      <div class="page-head">
+        <div><h1>Utilisateurs internes</h1><p class="page-sub">Administrateurs et agents bancaires — gestion des accès.</p></div>
+      </div>
+      <div class="panel">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Statut</th><th class="actions-col">Accès</th></tr></thead>
+            <tbody id="usersTableBody"><tr><td colspan="5" class="loading">Chargement…</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -270,37 +394,96 @@
 
     <!-- ===== PAGE AUDIT ===== -->
     <section class="page" id="page-audit" aria-label="Journaux d'audit">
-      <div class="topbar">
-        <div>
-          <h2>Journaux d'audit</h2>
-          <p>Traces immuables de toutes les actions (connexions, ajouts de bénéficiaires, validations…).</p>
-        </div>
+      <div class="page-head">
+        <div><h1>Journaux d'audit</h1><p class="page-sub">Traces immuables de toutes les actions sensibles, horodatées.</p></div>
       </div>
-      <div class="card">
+      <div class="panel">
         <div class="toolbar">
           <input type="search" id="auditSearch" placeholder="Filtrer par utilisateur (email)…" aria-label="Filtrer l'audit" />
           <button class="btn btn-primary" id="auditApply">Filtrer</button>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Date</th><th>Utilisateur</th><th>Action</th><th>Entité</th><th>Détails</th><th>IP</th></tr>
-            </thead>
+          <table class="data-table">
+            <thead><tr><th>Date et heure</th><th>Utilisateur</th><th>Action</th><th>Entité</th><th>Détails</th><th>IP</th></tr></thead>
             <tbody id="auditTableBody"><tr><td colspan="6" class="loading">Chargement…</td></tr></tbody>
           </table>
         </div>
         <div class="pagination">
-          <button id="auditPrev">← Précédent</button>
-          <span id="auditPageInfo">Page 1</span>
-          <button id="auditNext">Suivant →</button>
+          <button class="btn btn-ghost btn-sm" id="auditPrev">← Précédent</button>
+          <span id="auditPageInfo">Page 1 / 1</span>
+          <button class="btn btn-ghost btn-sm" id="auditNext">Suivant →</button>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- Pied de page -->
+  <footer class="app-footer">
+    <p><b>Banque Démonstration S.A.</b> — Siège : Boulevard de la Liberté, Douala — RCCM RC/DLA/1998/B/000001 — Agrément COBAC nº 001-A-98 — Capital 5 000 000 000 FCFA</p>
+    <nav class="footer-links" aria-label="Liens légaux">
+      <button class="link-btn" data-modal="modalLegal">Mentions légales</button>
+      <button class="link-btn" data-modal="modalSecurity">Sécurité &amp; confidentialité</button>
+      <a class="link-btn" href="mailto:rssi@banque.cm">Contact RSSI</a>
+    </nav>
+  </footer>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite" style="display:none"></div>
+<!-- ============ TIROIR DETAIL TRANSACTION ============ -->
+<div class="drawer-overlay" id="txDrawerOverlay" hidden></div>
+<aside class="drawer" id="txDrawer" aria-hidden="true" aria-label="Detail du virement" role="dialog">
+  <div class="drawer-head">
+    <div>
+      <p class="drawer-kicker">AVIS DE VIREMENT</p>
+      <h3 id="drawerReference">—</h3>
+    </div>
+    <button class="icon-btn" id="drawerClose" aria-label="Fermer le panneau">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-amount"><span id="drawerAmount">—</span><span class="badge" id="drawerStatus">—</span></div>
+    <dl class="drawer-meta" id="drawerMeta"></dl>
+    <ol class="timeline" id="drawerTimeline"></ol>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" id="drawerCopyRef">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Copier la référence
+    </button>
+    <button class="btn btn-primary" id="drawerPrintReceipt">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M7 8V3h10v5M7 17H4a1 1 0 0 1-1-1v-6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6a1 1 0 0 1-1 1h-3m-14 0v4h14v-4H7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Imprimer le reçu
+    </button>
+  </div>
+</aside>
+
+<!-- ============ MODALES LEGALES ============ -->
+<div class="modal" id="modalLegal" role="dialog" aria-modal="true" aria-labelledby="modalLegalTitle" hidden>
+  <div class="modal-card">
+    <div class="modal-head"><h3 id="modalLegalTitle">Mentions légales</h3><button class="icon-btn modal-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="modal-body">
+      <p>Banque Démonstration S.A., société anonyme au capital de 5 000 000 000 FCFA, immatriculée au RCCM de Douala sous le nº RC/DLA/1998/B/000001. Siège social : Boulevard de la Liberté, Douala, Cameroun. Agrément COBAC nº 001-A-98 délivré par la Commission bancaire de l'Afrique centrale.</p>
+      <p>Directeur de la publication : la Direction Générale. Directeur de la conformité : la Direction Conformité &amp; Risques. Les données personnelles sont traitées conformément à la loi camerounaise nº 2010/021 du 21 décembre 2010 relative à la cybersécurité et la cybercriminalité et au RGPD pour les clients résidant dans l'UE.</p>
+      <p>Cette console est un outil interne : toute consultation, extraction ou divulgation est journalisée et peut engager la responsabilité disciplinaire et pénale de son auteur.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modalSecurity" role="dialog" aria-modal="true" aria-labelledby="modalSecurityTitle" hidden>
+  <div class="modal-card">
+    <div class="modal-head"><h3 id="modalSecurityTitle">Sécurité &amp; confidentialité</h3><button class="icon-btn modal-close" aria-label="Fermer"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="modal-body">
+      <p><strong>Chiffrement.</strong> Les échanges sont protégés par TLS 1.3. Les secrets (mots de passe, OTP) ne sont jamais stockés en clair : hachage BCrypt coût 12. Les sessions utilisent un jeton JWT (HS256, 8h) et expirent automatiquement.</p>
+      <p><strong>Double contrôle.</strong> Les opérations sensibles exigent une confirmation OTP ; les virements d'entreprise requièrent la signature de mandataires distincts avant tout débit.</p>
+      <p><strong>Journalisation.</strong> Chaque action est enregistrée dans un journal immuable (connexions, recherches, validations, suspensions) conservé 10 ans, consultable par la conformité uniquement.</p>
+      <p><strong>Incident.</strong> Toute suspicion doit être signalée immédiatement au RSSI (rssi@banque.cm) et au Responsable conformité. En cas de compromission avérée, le compte est suspendu et les jetons sont révoqués.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="app.js"></script>
 </body>

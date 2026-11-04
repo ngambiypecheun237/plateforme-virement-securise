@@ -19,7 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ExportServiceTest {
 
-    private final ExportService exportService = new ExportService();
+    private final ExportService exportService =
+            new ExportService(new com.banque.virement.service.ReceiptVerificationService(
+                    java.util.Base64.getEncoder().encodeToString("cle-de-test-0123456789-0123456789-0123456789".getBytes(java.nio.charset.StandardCharsets.UTF_8))));
 
     private Transfer sampleTransfer() {
         User user = User.builder().id(1L).firstName("Jean").lastName("MARTIN").email("jean@client.cm").build();

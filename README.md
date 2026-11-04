@@ -12,6 +12,11 @@ Projet réalisé dans le cadre du **Cahier des charges « Mise en place d'une pl
 |---|---|---|
 | Backend Spring Boot (API REST) | ✅ | Spring Boot 3.4 / Java 21, architecture en couches (Controller → Service → Repository → Entity) |
 | Virements unitaires internes / externes | ✅ | `POST /api/v1/transfers` (+ OTP de confirmation) |
+| Reçu de virement PDF imprimable (agent → client) | ✅ | Bouton « Imprimer le reçu » dans la console (filtre Transactions) ; `GET /api/v1/transfers/{id}/receipt.pdf` ; code de vérification anti-falsification (HMAC-SHA256) + vérification publique `GET /api/v1/public/verify` |
+| Page de connexion sans identifiants affichés | ✅ | Écran split-screen institutionnel, aucune information de connexion visible |
+| 100 comptes répartis par catégories | ✅ | 48 COURANT + 28 EPARGNE + 21 PRO (entreprises) + 3 particuliers historiques ; 3 admins + 4 agents |
+| Notification centre + recherche globale | ✅ | Cloche (compteur non lus, polling 30 s) ; recherche unifiée clients / comptes / virements |
+| Date et heure sur chaque transaction | ✅ | Partout (table, tiroir de détail, fil d'audit, reçu PDF : date longue + heure) |
 | Virements de masse B2B (remises salaires/fournisseurs) | ✅ | Upload CSV → traitement **asynchrone** → double signature des mandataires |
 | Authentification forte (MFA) | ✅ | JWT + OTP à 6 chiffres (hash BCrypt, expiration 5 min, 5 tentatives max) |
 | RBAC strict | ✅ | `CLIENT` (B2C), `ENTREPRISE` (B2B mandataires), `AGENT_BANCAIRE`, `ADMIN` (`/api/v1/admin/**`) |
@@ -35,16 +40,32 @@ Projet réalisé dans le cadre du **Cahier des charges « Mise en place d'une pl
 
 ## 2. Comptes de démonstration (seed automatique)
 
+### Administrateurs (3)
+| Nom | Email | Mot de passe |
+|---|---|---|
+| Alice NGONO — Directrice des Opérations | `admin@banque.cm` | `Admin@123` |
+| Patrick MBALA — Administrateur SI | `patrick.mbala@banque.cm` | `Admin@123` |
+| Sandra TCHAMI — Responsable Conformité | `sandra.tchami@banque.cm` | `Admin@123` |
+
+### Agents bancaires (4)
+| Nom | Email | Mot de passe |
+|---|---|---|
+| Boris TCHOUMBA — Analyste anti-fraude | `agent@banque.cm` | `Agent@123` |
+| Laurette KAMGA — Back-office | `agent.backoffice@banque.cm` | `Agent@123` |
+| Olivier FOUDA — Agence / Caisse | `agent.caisse@banque.cm` | `Agent@123` |
+| Nadia ESSONO — Contrôle LBC/FT | `agent.conformite@banque.cm` | `Agent@123` |
+
+### Clients & entreprises
 | Rôle | Email | Mot de passe |
 |---|---|---|
-| Administrateur | `admin@banque.cm` | `Admin@123` |
-| Agent bancaire (anti-fraude) | `agent@banque.cm` | `Agent@123` |
 | Client B2C (2 comptes, carnet de bénéficiaires) | `jean.martin@client.cm` | `Client@123` |
 | Client B2C | `marie.nga@client.cm` | `Client@123` |
 | Entreprise B2B — DG / mandataire 1 | `directeur@ekondo.cm` | `Ent@123` |
 | Entreprise B2B — comptable / mandataire 2 | `comptable@ekondo.cm` | `Ent@123` |
 
-> Le seed crée aussi une **alerte anti-fraude ouverte** (8 500 000 XAF) et un **virement B2B en attente de double signature** pour la démonstration.
+**100 comptes sont seedés** : 48 COURANT particuliers + 28 EPARGNE + 21 PRO (entreprises, dont EKONDO + 20 générées) + 3 particuliers historiques, répartis en actifs / suspendus / bloqués, avec IBANs valides (modulo 97) et ~250 virements historiques sur 90 jours.
+
+> La page de connexion n'affiche **aucun identifiant** (contrairement aux versions de démonstration classiques).
 
 ## 3. Démarrage rapide
 
@@ -82,9 +103,11 @@ mvn spring-boot:run
 
 ## 4. Parcours de démonstration (5 minutes)
 
-1. **Connexion admin** : http://localhost:8080/admin/ → `admin@banque.cm` / `Admin@123`
-2. **Tableau de bord** : KPIs, répartition des virements par statut, volume journalier.
-3. **Anti-fraude** : menu *Anti-fraude* → l'alerte `TRF-SEED-000900` (8,5 M XAF) → **Rejeter** (les fonds ne sont jamais débités) ou **Valider** (exécution immédiate).
+1. **Connexion agent** : http://localhost:8080/admin/ → `agent@banque.cm` / `Agent@123`
+2. **Tableau de bord** : KPIs, répartition des virements par statut, volume journalier, opérations à traiter.
+3. **Transactions** : rechercher un virement → icône imprimante → **reçu PDF imprimable remis au client** (avec code de vérification anti-falsification).
+4. **Anti-fraude** : menu *Anti-fraude* → une des 3 alertes ouvertes → **Valider** (exécute) ou **Rejeter** (fonds non débités).
+5. **Vérification d'authenticité** : `GET /api/v1/public/verify?reference=TRF-…&amount=8500000&code=XXXXXXXXXX` → confirme l'authenticité du reçu sans exposer de données.
 4. **Client B2C** (nouvel onglet, Swagger ou curl) : login `jean.martin@client.cm` / `Client@123` → créer un virement → confirmer avec le code OTP **retourné dans la réponse en mode dev** (`devCode`).
 5. **Double signature B2B** : login `comptable@ekondo.cm`, demander un OTP pour l'approbation, signer ; puis idem `directeur@ekondo.cm` → le quorum est atteint → le virement est exécuté.
 6. **Audit** : menu *Journaux d'audit* → toutes les actions tracées.
